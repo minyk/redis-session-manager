@@ -76,6 +76,30 @@ Version 2.0.0 added additional support for ElastiCache Replication Groups. Appli
 _nodes_ is a space-separated list of all nodes in the replication group. There is no default value; failure to specify this will result in a failure to start.
 _nodePollInterval_ is the interval for polling each node in the group to determine if it is the master or a slave.
 
+Redis Sentinel usage
+-----
+```
+<Manager className="com.crimsonhexagon.rsm.redisson.SentinelSessionManager"
+	nodes="redis://127.0.0.1:26389 redis://127.0.0.1:26379 ..."
+	masterName="mymaster"
+	sessionKeyPrefix="_rsm_"
+	saveOnChange="false"
+	forceSaveAfterRequest="false"
+	dirtyOnMutation="false"
+	ignorePattern=".*\\.(ico|png|gif|jpg|jpeg|swf|css|js)$"
+	maxSessionAttributeSize="-1"
+	maxSessionSize="-1"
+	allowOversizedSessions="false"
+	masterConnectionPoolSize="100"
+	slaveConnectionPoolSize="100"
+	database="0"
+	password="<null>"
+	timeout="60000"
+	pingTimeout="1000"
+	retryAttempts="20"
+	retryInterval="1000"
+/>
+```
 	
 Notes on object mutation
 -----
