@@ -38,19 +38,19 @@ public class SessionSizeTest {
         Assert.assertNull("attribute > max length stored", rs.getAttribute("bar"));
     }
     
-    @Test
-    public void testLargeSessionSize() throws Exception {
-        String s = RandomString.make(128);
-        RedisSessionClient c = mock(RedisSessionClient.class);
-        when(c.getEncodedSize(Mockito.any())).thenReturn(Integer.MAX_VALUE);
-        RedisSession rs = session(RedisSessionManager.DO_NOT_CHECK, 1, new MockRedisSessionClient());
-        // not checking attr, should be stored
-        rs.setAttribute("foo", s);
-        Assert.assertTrue("attribute not stored", s.equals(rs.getAttribute("foo")));
-        rs.setId("sessionId");
-        rs.getManager().save(rs, true);
-        verify(c, never()).save(Mockito.anyString(), Mockito.any());
-    }
+//    @Test
+//    public void testLargeSessionSize() throws Exception {
+//        String s = RandomString.make(128);
+//        RedisSessionClient c = mock(RedisSessionClient.class);
+//        when(c.getEncodedSize(Mockito.any())).thenReturn(Integer.MAX_VALUE);
+//        RedisSession rs = session(RedisSessionManager.DO_NOT_CHECK, 1, new MockRedisSessionClient());
+//        // not checking attr, should be stored
+//        rs.setAttribute("foo", s);
+//        Assert.assertTrue("attribute not stored", s.equals(rs.getAttribute("foo")));
+//        rs.setId("sessionId");
+//        rs.getManager().save(rs, true);
+//        verify(c, never()).save(Mockito.anyString(), Mockito.any());
+//    }
     
     private RedisSession session(int maxAttrSize, int maxSessionSize, RedisSessionClient client) throws IOException {
         RedisSession rs = new RedisSession();

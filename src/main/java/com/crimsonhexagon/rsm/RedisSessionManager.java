@@ -54,7 +54,11 @@ public abstract class RedisSessionManager extends ManagerBase {
 	private int maxSessionSize = DO_NOT_CHECK;
 	private boolean allowOversizedSessions;
 	
-	private ThreadLocal<RedisSessionState> currentSessionState = InheritableThreadLocal.withInitial(RedisSessionState::new);
+	private ThreadLocal<RedisSessionState> currentSessionState = new ThreadLocal<RedisSessionState>() {
+			@Override public RedisSessionManager.RedisSessionState initialValue() {
+					return new RedisSessionState();
+				}
+			};
 	
 	private RedisSessionRequestValve requestValve;
 
